@@ -127,11 +127,42 @@
       font-weight: bold;
     }
 
+    /* 行選択ボタン */
+    .row-selector {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .row-btn {
+      background: rgba(255,255,255,.75);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 6px 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      color: #555;
+      box-shadow: 0 3px 6px rgba(0,0,0,.1);
+      transition: transform .1s, background .15s;
+      white-space: nowrap;
+    }
+    .row-btn:active { transform: scale(.93); }
+    .row-btn.selected {
+      background: linear-gradient(135deg,#f093fb,#f5576c);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 3px 0 #b5154d;
+    }
+
     .play-hint {
       font-size: 1.05rem;
       color: #777;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       animation: hintFloat 2s ease-in-out infinite;
     }
 
@@ -454,6 +485,8 @@
     <button class="back-btn" onclick="showMenu()">← もどる</button>
     <div class="play-title">さわってあそぼう 🫧</div>
   </div>
+  <!-- 行選択ボタン -->
+  <div class="row-selector" id="rowSelector"></div>
   <p class="play-hint">ひらがなを タップしてみよう！ 🔊</p>
   <div class="fp-grid" id="fpGrid"></div>
 </div>
@@ -506,13 +539,6 @@
     <div class="celeb-word" id="celebWord">あり</div>
     <div class="celeb-next">タップして つぎへ →</div>
   </div>
-</div>
-
-<!-- ===== LEVEL UP BANNER ===== -->
-<div id="levelUpBanner">
-  <span class="lu-emoji">🎊</span>
-  あたらしい もじが でてきたよ！
-  <div class="lu-chars" id="luChars"></div>
 </div>
 
 <!-- ===== CONFETTI ===== -->
@@ -574,7 +600,7 @@ const HIRAGANA = [
 // ================================================================
 //  STATE
 // ================================================================
-let maxGroup    = 1;
+let maxGroup    = 10;   // 全50音を最初から使用
 let hitCount    = {};   // correct count per character
 let queue       = [];
 let current     = null; // current quiz question
@@ -613,13 +639,44 @@ function setScreen(id) {
 // ================================================================
 //  FREE PLAY
 // ================================================================
+const ROW_LABELS = ['あ行','か行','さ行','た行','な行','は行','ま行','や行','ら行','わ行'];
+let fpSelectedGroup = 1; // 表示中の行グループ
+
+function showFreePlayGroup(g) {
+  fpSelectedGroup = g;
+
+  // ボタンの選択状態を更新
+  document.querySelectorAll('.row-btn').forEach(b => {
+    b.classList.toggle('selected', parseInt(b.dataset.g) === g);
+  });
+
+  renderFpBubbles();
+}
+
 function renderFreePlay() {
+  // 行選択ボタンを生成
+  const selector = document.getElementById('rowSelector');
+  selector.innerHTML = '';
+  ROW_LABELS.forEach((label, i) => {
+    const g = i + 1;
+    const btn = document.createElement('button');
+    btn.className = 'row-btn' + (g === fpSelectedGroup ? ' selected' : '');
+    btn.dataset.g = g;
+    btn.textContent = label;
+    btn.addEventListener('click', () => showFreePlayGroup(g));
+    selector.appendChild(btn);
+  });
+
+  renderFpBubbles();
+}
+
+function renderFpBubbles() {
   const grid = document.getElementById('fpGrid');
   grid.innerHTML = '';
 
-  const chars = HIRAGANA.filter(h => h.g <= maxGroup);
-  const durations  = [2.0, 2.5, 1.9, 2.3, 2.1, 2.6, 1.8, 2.4, 2.2, 2.7];
-  const delays     = [0, .4, .8, .2, .6, 1.0, .3, .7, .1, .5];
+  const chars = HIRAGANA.filter(h => h.g === fpSelectedGroup);
+  const durations = [2.0, 2.5, 1.9, 2.3, 2.1, 2.6, 1.8, 2.4, 2.2, 2.7];
+  const delays    = [0, .4, .8, .2, .6, 1.0, .3, .7, .1, .5];
 
   chars.forEach((h, i) => {
     const el = document.createElement('div');
@@ -717,7 +774,6 @@ function tapQuizBubble(idx) {
     hitCount[correct]++;
 
     updateStats();
-    maybeUnlockGroup();
 
     setTimeout(showCelebration, 480);
 
@@ -765,25 +821,6 @@ function onCelebTap() {
   nextQuestion();
 }
 
-// ================================================================
-//  LEVEL UP
-// ================================================================
-function maybeUnlockGroup() {
-  if (maxGroup >= 10) return;
-  const groupChars    = HIRAGANA.filter(h => h.g === maxGroup);
-  const masteredCount = groupChars.filter(h => hitCount[h.c] >= 3).length;
-
-  if (masteredCount >= Math.ceil(groupChars.length * 0.8)) {
-    maxGroup++;
-    const newChars = HIRAGANA.filter(h => h.g === maxGroup).map(h => h.c).join(' ');
-    document.getElementById('luChars').textContent = newChars;
-    buildQueue();
-
-    const banner = document.getElementById('levelUpBanner');
-    banner.classList.add('show');
-    setTimeout(() => banner.classList.remove('show'), 3000);
-  }
-}
 
 // ================================================================
 //  STATS
