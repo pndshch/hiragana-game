@@ -8,460 +8,281 @@
     *, *::before, *::after {
       box-sizing: border-box; margin: 0; padding: 0;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
+      user-select: none; -webkit-user-select: none;
     }
-
     body {
-      font-family: 'Hiragino Rounded Gothic Pro', 'ヒラギノ丸ゴ Pro W4',
-                   'BIZ UDPGothic', 'Meiryo', sans-serif;
-      background: linear-gradient(160deg, #cff4f0 0%, #ffd6e8 100%);
-      min-height: 100dvh;
-      overflow-x: hidden;
+      font-family: 'Hiragino Rounded Gothic Pro','ヒラギノ丸ゴ Pro W4','BIZ UDPGothic','Meiryo',sans-serif;
+      background: linear-gradient(160deg,#cff4f0 0%,#ffd6e8 100%);
+      min-height: 100dvh; overflow-x: hidden;
     }
 
-    /* ============================================================
-       SCREEN SYSTEM
-    ============================================================ */
+    /* ── SCREENS ─────────────────────────────────────── */
     .screen {
-      display: none;
-      min-height: 100dvh;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px 16px 36px;
+      display: none; min-height: 100dvh;
+      flex-direction: column; align-items: center;
+      padding: 18px 14px 32px;
     }
     .screen.active { display: flex; }
 
-    /* ============================================================
-       MENU SCREEN
-    ============================================================ */
-    #menuScreen {
-      justify-content: center;
-      gap: 24px;
-      text-align: center;
-    }
-
-    .menu-mascot {
-      font-size: 7rem;
-      animation: bob 2.2s ease-in-out infinite;
-      line-height: 1;
-    }
-
-    .menu-title {
-      font-size: 2.8rem;
-      color: #e84393;
-      line-height: 1.3;
-      text-shadow: 3px 3px 0 rgba(232,67,147,.15);
-    }
-
-    .menu-buttons {
-      width: 100%;
-      max-width: 380px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .menu-btn {
-      width: 100%;
-      border: none;
-      border-radius: 28px;
-      padding: 20px 16px;
-      font-size: 1.5rem;
-      font-family: inherit;
-      cursor: pointer;
-      line-height: 1.3;
-      transition: transform .1s, box-shadow .1s;
-    }
-    .menu-btn:active { transform: translateY(5px) !important; }
-
-    .btn-play {
-      background: linear-gradient(135deg, #a8edea, #fed6e3);
-      color: #333;
-      box-shadow: 0 7px 0 #7fbdba;
-    }
-    .btn-play:active { box-shadow: 0 2px 0 #7fbdba; }
-
-    .btn-game {
-      background: linear-gradient(135deg, #f093fb, #f5576c);
-      color: white;
-      box-shadow: 0 7px 0 #b5154d;
-    }
-    .btn-game:active { box-shadow: 0 2px 0 #b5154d; }
-
-    .menu-btn .btn-icon { font-size: 2rem; display: block; margin-bottom: 4px; }
-    .menu-btn .btn-label { display: block; font-size: 1.25rem; }
-    .menu-btn .btn-desc { display: block; font-size: .85rem; opacity: .7; margin-top: 3px; }
-
-    /* ============================================================
-       FREE PLAY SCREEN
-    ============================================================ */
-    #playScreen {
-      gap: 0;
-      position: relative;
-    }
-
-    .play-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
+    /* ── SHARED ──────────────────────────────────────── */
     .back-btn {
-      background: rgba(255,255,255,.8);
-      border: none;
-      border-radius: 16px;
-      padding: 10px 16px;
-      font-size: 1rem;
-      font-family: inherit;
-      cursor: pointer;
-      color: #555;
+      background: rgba(255,255,255,.82); border: none;
+      border-radius: 16px; padding: 9px 15px;
+      font-size: .95rem; font-family: inherit;
+      cursor: pointer; color: #555;
       box-shadow: 0 3px 8px rgba(0,0,0,.1);
+      flex-shrink: 0;
     }
-
-    .play-title {
-      font-size: 1.3rem;
-      color: #e84393;
-      font-weight: bold;
-    }
-
-    /* 行選択ボタン */
     .row-selector {
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 12px;
+      width: 100%; max-width: 500px;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 7px;
+      margin-bottom: 10px;
     }
     .row-btn {
-      background: rgba(255,255,255,.75);
-      border: 2px solid transparent;
-      border-radius: 14px;
-      padding: 6px 12px;
-      font-size: 1rem;
-      font-family: inherit;
-      cursor: pointer;
-      color: #555;
+      background: rgba(255,255,255,.75); border: 2px solid transparent;
+      border-radius: 13px; padding: 5px 11px;
+      font-size: .95rem; font-family: inherit;
+      cursor: pointer; color: #555;
       box-shadow: 0 3px 6px rgba(0,0,0,.1);
-      transition: transform .1s, background .15s;
-      white-space: nowrap;
+      transition: transform .1s;
     }
-    .row-btn:active { transform: scale(.93); }
+    .row-btn:active { transform: scale(.9); }
     .row-btn.selected {
       background: linear-gradient(135deg,#f093fb,#f5576c);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 3px 0 #b5154d;
+      color: white; box-shadow: 0 3px 0 #b5154d;
     }
 
-    .play-hint {
-      font-size: 1.05rem;
-      color: #777;
-      text-align: center;
-      margin-bottom: 16px;
-      animation: hintFloat 2s ease-in-out infinite;
+    /* ── MENU ────────────────────────────────────────── */
+    #menuScreen { justify-content: center; gap: 22px; text-align: center; }
+    .menu-mascot { font-size: 6.5rem; animation: bob 2.2s ease-in-out infinite; }
+    .menu-title  { font-size: 2.7rem; color: #e84393; line-height: 1.3; text-shadow: 3px 3px 0 rgba(232,67,147,.15); }
+    .menu-buttons { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 13px; }
+    .menu-btn {
+      width: 100%; border: none; border-radius: 26px;
+      padding: 18px 14px; font-family: inherit; cursor: pointer;
+      line-height: 1.3; transition: transform .1s, box-shadow .1s;
     }
+    .menu-btn:active { transform: translateY(5px) !important; }
+    .btn-play  { background: linear-gradient(135deg,#a8edea,#fed6e3); color: #333; box-shadow: 0 7px 0 #7fbdba; }
+    .btn-play:active  { box-shadow: 0 2px 0 #7fbdba; }
+    .btn-game  { background: linear-gradient(135deg,#f093fb,#f5576c); color: white; box-shadow: 0 7px 0 #b5154d; }
+    .btn-game:active  { box-shadow: 0 2px 0 #b5154d; }
+    .btn-write { background: linear-gradient(135deg,#667eea,#764ba2); color: white; box-shadow: 0 7px 0 #3c2070; }
+    .btn-write:active { box-shadow: 0 2px 0 #3c2070; }
+    .btn-icon  { font-size: 1.9rem; display: block; margin-bottom: 3px; }
+    .btn-label { display: block; font-size: 1.2rem; font-weight: bold; }
+    .btn-desc  { display: block; font-size: .82rem; opacity: .75; margin-top: 2px; }
 
-    /* Floating bubble grid */
-    .fp-grid {
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-    }
-
+    /* ── FREE PLAY ───────────────────────────────────── */
+    #playScreen { gap: 0; }
+    .play-header { width: 100%; display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .play-title  { font-size: 1.25rem; color: #e84393; font-weight: bold; }
+    .play-hint   { font-size: 1rem; color: #777; text-align: center; margin-bottom: 14px; animation: hintFloat 2s ease-in-out infinite; }
+    .fp-grid     { width: 100%; max-width: 420px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
     .fp-bubble {
-      width: clamp(100px, 36vw, 145px);
-      height: clamp(100px, 36vw, 145px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(2.8rem, 10vw, 4rem);
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(0,0,0,.13), inset 0 -6px 10px rgba(0,0,0,.08);
+      width: clamp(98px,35vw,142px); height: clamp(98px,35vw,142px);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: clamp(2.7rem,9.5vw,3.9rem); cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,.13),inset 0 -5px 10px rgba(0,0,0,.08);
       transition: transform .12s;
-      animation: floatBob var(--fd, 2.2s) ease-in-out var(--fdel, 0s) infinite;
+      animation: floatBob var(--fd,2.2s) ease-in-out var(--fdel,0s) infinite;
     }
-
     .fp-bubble:active { transform: scale(.93); }
     .fp-bubble.jumping { animation: jump .5s ease forwards; }
+    .fp-bubble:nth-child(5n+1) { background: linear-gradient(145deg,#fff9c4,#ffcc02); box-shadow: 0 8px 0 #c49a00,0 10px 20px rgba(0,0,0,.12); }
+    .fp-bubble:nth-child(5n+2) { background: linear-gradient(145deg,#c8f9e0,#43e97b); box-shadow: 0 8px 0 #1a8c54,0 10px 20px rgba(0,0,0,.12); }
+    .fp-bubble:nth-child(5n+3) { background: linear-gradient(145deg,#fce4ec,#f953c6); box-shadow: 0 8px 0 #961248,0 10px 20px rgba(0,0,0,.12); }
+    .fp-bubble:nth-child(5n+4) { background: linear-gradient(145deg,#e3f2fd,#74b9ff); box-shadow: 0 8px 0 #1a6bbf,0 10px 20px rgba(0,0,0,.12); }
+    .fp-bubble:nth-child(5n+5) { background: linear-gradient(145deg,#ede7f6,#a29bfe); box-shadow: 0 8px 0 #5a52c0,0 10px 20px rgba(0,0,0,.12); }
 
-    /* Bubble color themes */
-    .fp-bubble:nth-child(5n+1) { background: linear-gradient(145deg,#fff9c4,#ffcc02); box-shadow: 0 8px 0 #c49a00, 0 10px 20px rgba(0,0,0,.12); }
-    .fp-bubble:nth-child(5n+2) { background: linear-gradient(145deg,#c8f9e0,#43e97b); box-shadow: 0 8px 0 #1a8c54, 0 10px 20px rgba(0,0,0,.12); }
-    .fp-bubble:nth-child(5n+3) { background: linear-gradient(145deg,#fce4ec,#f953c6); box-shadow: 0 8px 0 #961248, 0 10px 20px rgba(0,0,0,.12); }
-    .fp-bubble:nth-child(5n+4) { background: linear-gradient(145deg,#e3f2fd,#74b9ff); box-shadow: 0 8px 0 #1a6bbf, 0 10px 20px rgba(0,0,0,.12); }
-    .fp-bubble:nth-child(5n+5) { background: linear-gradient(145deg,#ede7f6,#a29bfe); box-shadow: 0 8px 0 #5a52c0, 0 10px 20px rgba(0,0,0,.12); }
-
-    /* ============================================================
-       GAME SCREEN
-    ============================================================ */
-    #gameScreen {
-      gap: 14px;
-      max-width: 460px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Top bar */
-    .game-topbar {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .game-score {
-      background: white;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: #e84393;
-      box-shadow: 0 3px 8px rgba(0,0,0,.1);
-    }
-
-    .game-streak {
-      background: white;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: #e17055;
-      box-shadow: 0 3px 8px rgba(0,0,0,.1);
-    }
-
-    /* Mascot question area */
-    .mascot-area {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(255,255,255,.85);
-      border-radius: 24px;
-      padding: 16px 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.1);
-    }
-
-    .mascot-emoji {
-      font-size: 3.5rem;
-      flex-shrink: 0;
-      transition: transform .15s;
-    }
+    /* ── GAME ────────────────────────────────────────── */
+    #gameScreen { gap: 13px; max-width: 460px; margin: 0 auto; width: 100%; }
+    .game-topbar { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .game-score  { background: white; border-radius: 20px; padding: 6px 15px; font-size: 1.1rem; font-weight: bold; color: #e84393; box-shadow: 0 3px 8px rgba(0,0,0,.1); }
+    .game-streak { background: white; border-radius: 20px; padding: 6px 15px; font-size: 1.1rem; font-weight: bold; color: #e17055; box-shadow: 0 3px 8px rgba(0,0,0,.1); }
+    .mascot-area { width: 100%; display: flex; align-items: center; gap: 13px; background: rgba(255,255,255,.85); border-radius: 22px; padding: 14px 18px; box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .mascot-emoji { font-size: 3.3rem; flex-shrink: 0; }
     .mascot-emoji.speaking { animation: mascotSpeak .5s ease; }
-
-    .mascot-right {
-      flex: 1;
-    }
-
-    .mascot-question {
-      font-size: 1rem;
-      color: #888;
-      margin-bottom: 4px;
-    }
-
-    .mascot-target-sound {
-      font-size: 1.2rem;
-      color: #333;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
+    .mascot-right { flex: 1; }
+    .mascot-question { font-size: .95rem; color: #888; margin-bottom: 4px; }
+    .mascot-sound    { font-size: 1.15rem; color: #333; font-weight: bold; margin-bottom: 7px; }
     .replay-btn {
-      background: linear-gradient(135deg,#74b9ff,#0984e3);
-      color: white;
-      border: none;
-      border-radius: 18px;
-      padding: 9px 18px;
-      font-size: .95rem;
-      font-family: inherit;
-      cursor: pointer;
-      box-shadow: 0 4px 0 #1a5276;
-      transition: transform .1s, box-shadow .1s;
+      background: linear-gradient(135deg,#74b9ff,#0984e3); color: white;
+      border: none; border-radius: 17px; padding: 8px 16px;
+      font-size: .9rem; font-family: inherit; cursor: pointer;
+      box-shadow: 0 4px 0 #1a5276; transition: transform .1s, box-shadow .1s;
     }
     .replay-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #1a5276; }
-
-    /* Quiz bubbles */
-    .quiz-bubbles {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-    }
-
+    .quiz-bubbles { width: 100%; display: flex; justify-content: center; gap: 13px; }
     .quiz-bubble {
-      width: clamp(100px, 29vw, 136px);
-      height: clamp(100px, 29vw, 136px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(3rem, 11vw, 4.2rem);
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 8px 0 rgba(0,0,0,.15), 0 12px 24px rgba(0,0,0,.1);
-      transition: transform .12s, box-shadow .12s;
+      width: clamp(98px,28vw,132px); height: clamp(98px,28vw,132px);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: clamp(2.9rem,10.5vw,4rem); cursor: pointer;
+      box-shadow: 0 8px 0 rgba(0,0,0,.15),0 12px 22px rgba(0,0,0,.1);
+      transition: transform .12s;
       animation: floatBob var(--fd,2.2s) ease-in-out var(--fdel,0s) infinite;
     }
     .quiz-bubble:active { transform: scale(.93) translateY(4px); }
+    #qb0 { background: linear-gradient(145deg,#fff9c4,#ffd200); box-shadow: 0 8px 0 #b09000,0 12px 22px rgba(0,0,0,.1); }
+    #qb1 { background: linear-gradient(145deg,#c8f9e0,#43e97b); box-shadow: 0 8px 0 #1a8c54,0 12px 22px rgba(0,0,0,.1); }
+    #qb2 { background: linear-gradient(145deg,#fce4ec,#f953c6); box-shadow: 0 8px 0 #961248,0 12px 22px rgba(0,0,0,.1); }
+    .quiz-bubble.correct-pop { animation: bigPop .5s ease forwards !important; background: linear-gradient(145deg,#55efc4,#00b894) !important; box-shadow: 0 8px 0 #006d4e,0 12px 22px rgba(0,0,0,.1) !important; }
+    .quiz-bubble.wrong-shake { animation: wrongShake .45s ease forwards !important; background: linear-gradient(145deg,#ffb3b3,#e55) !important; box-shadow: 0 8px 0 #922b21,0 12px 22px rgba(0,0,0,.1) !important; }
+    .quiz-bubble.hint-glow   { animation: hintPulse 1s ease-in-out infinite !important; }
+    .progress-area { width: 100%; }
+    .progress-lbl   { font-size: .8rem; color: #777; margin-bottom: 4px; text-align: center; }
+    .progress-track { background: rgba(255,255,255,.5); border-radius: 10px; height: 12px; overflow: hidden; }
+    .progress-fill  { height: 100%; border-radius: 10px; background: linear-gradient(90deg,#f093fb,#f5576c); transition: width .5s ease; min-width: 3px; }
 
-    /* Bubble colors (fixed per position) */
-    #qb0 { background: linear-gradient(145deg,#fff9c4,#ffd200); --shadow: #b09000; }
-    #qb1 { background: linear-gradient(145deg,#c8f9e0,#43e97b); --shadow: #1a8c54; }
-    #qb2 { background: linear-gradient(145deg,#fce4ec,#f953c6); --shadow: #961248; }
+    /* ── WRITE MODE ──────────────────────────────────── */
+    #writeScreen { gap: 10px; padding: 14px 12px 24px; }
 
-    #qb0 { box-shadow: 0 8px 0 #b09000, 0 12px 24px rgba(0,0,0,.1); }
-    #qb1 { box-shadow: 0 8px 0 #1a8c54, 0 12px 24px rgba(0,0,0,.1); }
-    #qb2 { box-shadow: 0 8px 0 #961248, 0 12px 24px rgba(0,0,0,.1); }
-
-    .quiz-bubble.correct-pop {
-      animation: bigPop .5s ease forwards !important;
-      background: linear-gradient(145deg,#55efc4,#00b894) !important;
-      box-shadow: 0 8px 0 #006d4e, 0 12px 24px rgba(0,0,0,.1) !important;
+    .w-topbar {
+      width: 100%; max-width: 620px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 8px;
+    }
+    .w-char-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.88);
+      border-radius: 22px; padding: 6px 16px;
+      box-shadow: 0 3px 8px rgba(0,0,0,.1);
+    }
+    .w-char-big { font-size: 2.1rem; color: #2c3e50; font-weight: bold; line-height: 1; }
+    .w-speak-btn {
+      background: linear-gradient(135deg,#74b9ff,#0984e3); color: white;
+      border: none; border-radius: 12px; padding: 6px 10px;
+      font-size: .9rem; cursor: pointer;
+    }
+    .w-speak-btn:active { opacity: .8; }
+    .w-stars-badge {
+      background: white; border-radius: 18px; padding: 5px 13px;
+      font-size: 1.05rem; font-weight: bold; color: #f39c12;
+      box-shadow: 0 3px 8px rgba(0,0,0,.1); white-space: nowrap;
     }
 
-    .quiz-bubble.wrong-shake {
-      animation: wrongShake .45s ease forwards !important;
-      background: linear-gradient(145deg,#ffb3b3,#e55) !important;
-      box-shadow: 0 8px 0 #922b21, 0 12px 24px rgba(0,0,0,.1) !important;
+    /* Desktop layout: canvas left, hint right */
+    .w-main {
+      width: 100%; max-width: 700px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+    }
+    @media (min-width: 600px) {
+      .w-main { flex-direction: row; align-items: flex-start; justify-content: center; }
     }
 
-    /* hint glow: shown on correct bubble after wrong answer */
-    .quiz-bubble.hint-glow {
-      animation: hintPulse 1s ease-in-out infinite !important;
+    /* Canvas */
+    .canvas-wrap {
+      position: relative; flex-shrink: 0;
+      width: min(88vw, 390px);
+      aspect-ratio: 1;
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 10px 32px rgba(0,0,0,.18);
+      background: white;
+      background-image: radial-gradient(circle,#ddd 1.2px,transparent 1.2px);
+      background-size: 26px 26px;
+      touch-action: none;
     }
+    @media (min-width: 600px) {
+      .canvas-wrap { width: min(46vw,390px); }
+    }
+    #wGuideCanvas, #wDrawCanvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+    #wDrawCanvas { z-index: 1; cursor: crosshair; touch-action: none; }
 
-    /* Progress */
-    .progress-area {
-      width: 100%;
+    /* Coverage bar (bottom edge of canvas) */
+    .w-cov-bar  { position: absolute; bottom: 0; left: 0; right: 0; height: 9px; background: rgba(0,0,0,.05); z-index: 2; }
+    .w-cov-fill {
+      height: 100%; background: linear-gradient(90deg,#43e97b,#38f9d7);
+      border-radius: 0 5px 5px 0; transition: width .35s ease; width: 0%;
     }
-    .progress-lbl {
-      font-size: .82rem; color: #777; margin-bottom: 4px; text-align: center;
-    }
-    .progress-track {
-      background: rgba(255,255,255,.5); border-radius: 10px; height: 13px; overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%; border-radius: 10px;
-      background: linear-gradient(90deg,#f093fb,#f5576c);
-      transition: width .5s ease; min-width: 4px;
-    }
+    .w-cov-fill.gold { background: linear-gradient(90deg,#ffd700,#ff9f43); box-shadow: 0 0 8px rgba(255,200,0,.6); }
 
-    /* ============================================================
-       CELEBRATION OVERLAY
-    ============================================================ */
+    /* Result overlay (inside canvas) */
+    .w-result {
+      position: absolute; inset: 0; border-radius: 22px;
+      background: rgba(255,255,255,.94);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; z-index: 4;
+      opacity: 0; pointer-events: none; transition: opacity .28s;
+    }
+    .w-result.show { opacity: 1; pointer-events: all; }
+    .w-res-stars { font-size: 2.2rem; animation: starsIn .5s cubic-bezier(.175,.885,.32,1.275); }
+    .w-res-msg   { font-size: 1.85rem; color: #e84393; font-weight: bold; }
+    .w-res-emoji { font-size: 3.2rem; animation: bob 2s ease-in-out infinite; }
+    .w-res-word  { font-size: 1.3rem; color: #444; font-weight: bold; margin-bottom: 4px; }
+    .w-res-tap   { font-size: .82rem; color: #bbb; }
+
+    /* Hint box (side) */
+    .w-side { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .w-hint-box {
+      background: rgba(255,255,255,.85); border-radius: 20px;
+      padding: 16px 22px; text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1); min-width: 130px;
+    }
+    .w-hint-lbl   { font-size: .78rem; color: #bbb; margin-bottom: 6px; }
+    .w-hint-emoji { font-size: 3rem; line-height: 1; animation: bob 2.6s ease-in-out infinite; }
+    .w-hint-word  { font-size: 1.2rem; color: #333; font-weight: bold; margin-top: 4px; }
+
+    /* Controls (below canvas) */
+    .w-controls {
+      width: 100%; max-width: 500px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .w-instruction { flex: 1; text-align: center; font-size: .93rem; color: #888; animation: hintFloat 2s ease-in-out infinite; }
+    .w-btn {
+      border: none; border-radius: 18px; padding: 11px 16px;
+      font-size: .97rem; font-family: inherit; cursor: pointer;
+      transition: transform .1s, box-shadow .1s;
+    }
+    .w-btn:active { transform: translateY(3px); }
+    .w-btn-clear { background: rgba(255,255,255,.85); color: #666; box-shadow: 0 4px 0 #bbb; }
+    .w-btn-clear:active { box-shadow: 0 1px 0 #bbb; }
+    .w-btn-next  { background: linear-gradient(135deg,#667eea,#764ba2); color: white; font-weight: bold; box-shadow: 0 5px 0 #3c2070; }
+    .w-btn-next:active  { box-shadow: 0 2px 0 #3c2070; }
+
+    /* ── CELEBRATION ─────────────────────────────────── */
     #celebOverlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,.45);
       display: flex; align-items: center; justify-content: center;
-      z-index: 100; opacity: 0; pointer-events: none;
-      transition: opacity .25s;
+      z-index: 100; opacity: 0; pointer-events: none; transition: opacity .25s;
     }
     #celebOverlay.show { opacity: 1; pointer-events: all; }
+    .celeb-card { background: white; border-radius: 32px; padding: 30px 26px; text-align: center; max-width: 310px; width: 90%; animation: celebPop .45s cubic-bezier(.175,.885,.32,1.275); }
+    .celeb-ok    { font-size: 2.3rem; color: #e84393; margin-bottom: 8px; font-weight: bold; }
+    .celeb-char  { font-size: 5rem; line-height: 1; margin-bottom: 4px; }
+    .celeb-arrow { font-size: 1.6rem; color: #ccc; margin: 2px 0; }
+    .celeb-emoji { font-size: 3.8rem; }
+    .celeb-word  { font-size: 1.7rem; color: #333; font-weight: bold; margin: 4px 0 16px; }
+    .celeb-next  { font-size: .85rem; color: #bbb; }
 
-    .celeb-card {
-      background: white; border-radius: 32px;
-      padding: 32px 28px; text-align: center;
-      max-width: 320px; width: 90%;
-      animation: celebPop .45s cubic-bezier(.175,.885,.32,1.275);
-    }
-    .celeb-ok     { font-size: 2.4rem; color: #e84393; margin-bottom: 10px; font-weight: bold; }
-    .celeb-char   { font-size: 5rem; line-height: 1; margin-bottom: 4px; }
-    .celeb-arrow  { font-size: 1.8rem; color: #ccc; margin: 2px 0; }
-    .celeb-emoji  { font-size: 4rem; }
-    .celeb-word   { font-size: 1.8rem; color: #333; font-weight: bold; margin: 4px 0 18px; }
-    .celeb-next   { font-size: .88rem; color: #bbb; }
-
-    /* ============================================================
-       LEVEL UP
-    ============================================================ */
-    #levelUpBanner {
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%,-50%) scale(0);
-      background: linear-gradient(135deg,#ffd700,#ff9f43);
-      color: white; border-radius: 24px; padding: 26px 32px;
-      text-align: center; z-index: 200;
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-      transition: transform .4s cubic-bezier(.175,.885,.32,1.275);
-      font-size: 1.25rem; line-height: 1.9;
-      max-width: 300px; width: 90%;
-      pointer-events: none;
-    }
-    #levelUpBanner.show { transform: translate(-50%,-50%) scale(1); }
-    .lu-emoji  { font-size: 3rem; display: block; margin-bottom: 4px; }
-    .lu-chars  { font-size: 2rem; letter-spacing: 5px; margin-top: 6px; }
-
-    /* ============================================================
-       CONFETTI
-    ============================================================ */
-    #confettiLayer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 300; overflow: hidden;
-    }
+    /* ── CONFETTI ────────────────────────────────────── */
+    #confettiLayer { position: fixed; inset: 0; pointer-events: none; z-index: 300; overflow: hidden; }
     .conf { position: absolute; border-radius: 3px; animation: confFall linear forwards; }
 
-    /* ============================================================
-       KEYFRAMES
-    ============================================================ */
-    @keyframes bob {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-14px); }
-    }
-    @keyframes floatBob {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-12px); }
-    }
-    @keyframes hintFloat {
-      0%,100% { transform: translateY(0); opacity: .8; }
-      50%      { transform: translateY(-5px); opacity: 1; }
-    }
-    @keyframes jump {
-      0%   { transform: scale(1) translateY(0); }
-      30%  { transform: scale(1.35) translateY(-28px); }
-      65%  { transform: scale(1.1) translateY(-10px); }
-      85%  { transform: scale(1.04) translateY(-3px); }
-      100% { transform: scale(1) translateY(0); }
-    }
-    @keyframes mascotSpeak {
-      0%,100% { transform: scale(1); }
-      25%     { transform: scale(1.25) rotate(-5deg); }
-      75%     { transform: scale(1.15) rotate(5deg); }
-    }
-    @keyframes bigPop {
-      0%   { transform: scale(1); }
-      40%  { transform: scale(1.4); }
-      70%  { transform: scale(1.1); }
-      100% { transform: scale(1.15); }
-    }
-    @keyframes wrongShake {
-      0%,100%  { transform: translateX(0) scale(1); }
-      20%      { transform: translateX(-12px) scale(.95) rotate(-4deg); }
-      60%      { transform: translateX(12px) scale(.95) rotate(4deg); }
-    }
-    @keyframes hintPulse {
-      0%,100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(255,220,0,.7); }
-      50%     { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(255,220,0,0); }
-    }
-    @keyframes celebPop {
-      0%   { transform: scale(0) rotate(-8deg); opacity: 0; }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-    @keyframes confFall {
-      0%   { top: -20px; opacity: 1; }
-      100% { top: 110dvh; opacity: 0; transform: rotate(720deg) translateX(80px); }
-    }
+    /* ── KEYFRAMES ───────────────────────────────────── */
+    @keyframes bob        { 0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)} }
+    @keyframes floatBob   { 0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)} }
+    @keyframes hintFloat  { 0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(-5px);opacity:1} }
+    @keyframes jump       { 0%{transform:scale(1)translateY(0)}30%{transform:scale(1.35)translateY(-26px)}65%{transform:scale(1.1)translateY(-9px)}85%{transform:scale(1.04)translateY(-3px)}100%{transform:scale(1)translateY(0)} }
+    @keyframes mascotSpeak{ 0%,100%{transform:scale(1)}25%{transform:scale(1.23)rotate(-5deg)}75%{transform:scale(1.14)rotate(5deg)} }
+    @keyframes bigPop     { 0%{transform:scale(1)}40%{transform:scale(1.38)}70%{transform:scale(1.1)}100%{transform:scale(1.14)} }
+    @keyframes wrongShake { 0%,100%{transform:translateX(0)scale(1)}20%{transform:translateX(-11px)scale(.95)rotate(-4deg)}60%{transform:translateX(11px)scale(.95)rotate(4deg)} }
+    @keyframes hintPulse  { 0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,220,0,.7)}50%{transform:scale(1.08);box-shadow:0 0 0 15px rgba(255,220,0,0)} }
+    @keyframes celebPop   { 0%{transform:scale(0)rotate(-8deg);opacity:0}100%{transform:scale(1)rotate(0);opacity:1} }
+    @keyframes confFall   { 0%{top:-20px;opacity:1}100%{top:110dvh;opacity:0;transform:rotate(720deg)translateX(80px)} }
+    @keyframes starsIn    { 0%{transform:scale(0)rotate(-12deg)}100%{transform:scale(1)rotate(0)} }
   </style>
 </head>
 <body>
 
-<!-- ===== MENU SCREEN ===== -->
+<!-- ======================================================
+     MENU
+====================================================== -->
 <div id="menuScreen" class="screen active">
   <div class="menu-mascot">🐼</div>
   <h1 class="menu-title">ひらがな<br>あそび！</h1>
@@ -469,460 +290,618 @@
     <button class="menu-btn btn-play" onclick="showFreePlay()">
       <span class="btn-icon">🫧</span>
       <span class="btn-label">さわってあそぼう</span>
-      <span class="btn-desc">ひらがなを タップすると おとが でるよ！</span>
+      <span class="btn-desc">タップするとおとがでるよ！</span>
     </button>
     <button class="menu-btn btn-game" onclick="showGame()">
       <span class="btn-icon">🎮</span>
-      <span class="btn-label">ゲームをする</span>
-      <span class="btn-desc">🐼が よんだ もじを みつけよう！</span>
+      <span class="btn-label">もじをさがそう</span>
+      <span class="btn-desc">🐼がよんだもじをみつけよう！</span>
+    </button>
+    <button class="menu-btn btn-write" onclick="showWrite()">
+      <span class="btn-icon">✏️</span>
+      <span class="btn-label">かいてみよう</span>
+      <span class="btn-desc">ゆびでなぞってかいてみよう！</span>
     </button>
   </div>
 </div>
 
-<!-- ===== FREE PLAY SCREEN ===== -->
+<!-- ======================================================
+     FREE PLAY
+====================================================== -->
 <div id="playScreen" class="screen">
   <div class="play-header">
     <button class="back-btn" onclick="showMenu()">← もどる</button>
     <div class="play-title">さわってあそぼう 🫧</div>
   </div>
-  <!-- 行選択ボタン -->
-  <div class="row-selector" id="rowSelector"></div>
+  <div class="row-selector" id="fpRowSel"></div>
   <p class="play-hint">ひらがなを タップしてみよう！ 🔊</p>
   <div class="fp-grid" id="fpGrid"></div>
 </div>
 
-<!-- ===== GAME SCREEN ===== -->
+<!-- ======================================================
+     GAME
+====================================================== -->
 <div id="gameScreen" class="screen">
-
   <div class="game-topbar">
     <button class="back-btn" onclick="showMenu()">← もどる</button>
-    <div class="game-score" id="gameScore">⭐ 0</div>
-    <div class="game-streak" id="gameStreak">🔥 0</div>
+    <div class="game-score"  id="gameScore">⭐ 0</div>
+    <div class="game-streak" id="gameStreak">れんぞく 0</div>
   </div>
-
-  <!-- Mascot question area -->
   <div class="mascot-area">
     <div class="mascot-emoji" id="mascotEmoji">🐼</div>
     <div class="mascot-right">
       <div class="mascot-question">このもじは なんと よむ？</div>
-      <div class="mascot-target-sound" id="mascotSoundLabel">きいてね…</div>
-      <button class="replay-btn" id="replayBtn" onclick="replaySound()">
-        🔊 もういちど きく
-      </button>
+      <div class="mascot-sound" id="mascotSound">🔊 ボタンを おしてね！</div>
+      <button class="replay-btn" onclick="replaySound()">🔊 もういちど きく</button>
     </div>
   </div>
-
-  <!-- Quiz bubbles -->
   <div class="quiz-bubbles">
-    <div class="quiz-bubble" id="qb0" style="--fd:2.0s;--fdel:0.0s" onclick="tapQuizBubble(0)"></div>
-    <div class="quiz-bubble" id="qb1" style="--fd:2.4s;--fdel:0.3s" onclick="tapQuizBubble(1)"></div>
-    <div class="quiz-bubble" id="qb2" style="--fd:1.8s;--fdel:0.6s" onclick="tapQuizBubble(2)"></div>
+    <div class="quiz-bubble" id="qb0" style="--fd:2.0s;--fdel:0.0s" onclick="tapBubble(0)"></div>
+    <div class="quiz-bubble" id="qb1" style="--fd:2.4s;--fdel:0.3s" onclick="tapBubble(1)"></div>
+    <div class="quiz-bubble" id="qb2" style="--fd:1.8s;--fdel:0.6s" onclick="tapBubble(2)"></div>
   </div>
-
-  <!-- Progress -->
   <div class="progress-area">
-    <div class="progress-lbl" id="progressLbl">おぼえたもじ: 0 / 5</div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-    </div>
+    <div class="progress-lbl"  id="progressLbl">おぼえたもじ: 0 / 46</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
-
 </div>
 
-<!-- ===== CELEBRATION OVERLAY ===== -->
+<!-- ======================================================
+     WRITE MODE
+====================================================== -->
+<div id="writeScreen" class="screen">
+
+  <div class="w-topbar">
+    <button class="back-btn" onclick="showMenu()">← もどる</button>
+    <div class="w-char-pill">
+      <span class="w-char-big" id="wCharBig">あ</span>
+      <button class="w-speak-btn" onclick="speakWChar()">🔊</button>
+    </div>
+    <div class="w-stars-badge" id="wStarsBadge">⭐ 0</div>
+  </div>
+
+  <div class="row-selector" id="wRowSel"></div>
+
+  <div class="w-main">
+    <!-- Canvas area -->
+    <div class="canvas-wrap" id="wWrap">
+      <canvas id="wGcvs"></canvas>
+      <canvas id="wDcvs"></canvas>
+      <div class="w-cov-bar"><div class="w-cov-fill" id="wCovFill"></div></div>
+      <!-- Result overlay (lives inside the canvas box) -->
+      <div class="w-result" id="wResult" onclick="wNextChar()">
+        <div class="w-res-stars" id="wResStars">⭐⭐⭐</div>
+        <div class="w-res-msg"   id="wResMsg">すごい！！</div>
+        <div class="w-res-emoji" id="wResEmoji">🐜</div>
+        <div class="w-res-word"  id="wResWord">あり</div>
+        <div class="w-res-tap">タップして つぎへ →</div>
+      </div>
+    </div>
+
+    <!-- Word hint (right side on desktop, below on mobile) -->
+    <div class="w-side">
+      <div class="w-hint-box">
+        <div class="w-hint-lbl">ことばのヒント</div>
+        <div class="w-hint-emoji" id="wHintEmoji">🐜</div>
+        <div class="w-hint-word"  id="wHintWord">あり</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-controls">
+    <button class="w-btn w-btn-clear" onclick="wClear()">🗑 けす</button>
+    <div class="w-instruction" id="wInstruction">なぞってみよう！ ✏️</div>
+    <button class="w-btn w-btn-next" onclick="wNextChar()">つぎへ →</button>
+  </div>
+</div>
+
+<!-- ======================================================
+     CELEBRATION OVERLAY
+====================================================== -->
 <div id="celebOverlay" onclick="onCelebTap()">
   <div class="celeb-card">
     <div class="celeb-ok">せいかい！🎉</div>
-    <div class="celeb-char" id="celebChar">あ</div>
+    <div class="celeb-char"  id="celebChar">あ</div>
     <div class="celeb-arrow">↓</div>
     <div class="celeb-emoji" id="celebEmoji">🐜</div>
-    <div class="celeb-word" id="celebWord">あり</div>
+    <div class="celeb-word"  id="celebWord">あり</div>
     <div class="celeb-next">タップして つぎへ →</div>
   </div>
 </div>
 
-<!-- ===== CONFETTI ===== -->
 <div id="confettiLayer"></div>
 
 <script>
-// ================================================================
+// ============================================================
 //  DATA
-// ================================================================
+// ============================================================
 const HIRAGANA = [
-  {c:'あ',g:1,word:'あり',       we:'🐜'},
-  {c:'い',g:1,word:'いぬ',       we:'🐶'},
-  {c:'う',g:1,word:'うし',       we:'🐮'},
-  {c:'え',g:1,word:'えほん',     we:'📚'},
+  {c:'あ',g:1,word:'あり',       we:'🐜'},{c:'い',g:1,word:'いぬ',       we:'🐶'},
+  {c:'う',g:1,word:'うし',       we:'🐮'},{c:'え',g:1,word:'えほん',     we:'📚'},
   {c:'お',g:1,word:'おに',       we:'👹'},
-  {c:'か',g:2,word:'かに',       we:'🦀'},
-  {c:'き',g:2,word:'きりん',     we:'🦒'},
-  {c:'く',g:2,word:'くま',       we:'🐻'},
-  {c:'け',g:2,word:'けーき',     we:'🎂'},
+  {c:'か',g:2,word:'かに',       we:'🦀'},{c:'き',g:2,word:'きりん',     we:'🦒'},
+  {c:'く',g:2,word:'くま',       we:'🐻'},{c:'け',g:2,word:'けーき',     we:'🎂'},
   {c:'こ',g:2,word:'こあら',     we:'🐨'},
-  {c:'さ',g:3,word:'さかな',     we:'🐟'},
-  {c:'し',g:3,word:'しろくま',   we:'🐼'},
-  {c:'す',g:3,word:'すいか',     we:'🍉'},
-  {c:'せ',g:3,word:'せみ',       we:'🦗'},
+  {c:'さ',g:3,word:'さかな',     we:'🐟'},{c:'し',g:3,word:'しろくま',   we:'🐼'},
+  {c:'す',g:3,word:'すいか',     we:'🍉'},{c:'せ',g:3,word:'せみ',       we:'🦗'},
   {c:'そ',g:3,word:'そら',       we:'☁️'},
-  {c:'た',g:4,word:'たこ',       we:'🐙'},
-  {c:'ち',g:4,word:'ちょうちょ', we:'🦋'},
-  {c:'つ',g:4,word:'つき',       we:'🌙'},
-  {c:'て',g:4,word:'てんとうむし',we:'🐞'},
+  {c:'た',g:4,word:'たこ',       we:'🐙'},{c:'ち',g:4,word:'ちょうちょ', we:'🦋'},
+  {c:'つ',g:4,word:'つき',       we:'🌙'},{c:'て',g:4,word:'てんとうむし',we:'🐞'},
   {c:'と',g:4,word:'とら',       we:'🐯'},
-  {c:'な',g:5,word:'なす',       we:'🍆'},
-  {c:'に',g:5,word:'にじ',       we:'🌈'},
-  {c:'ぬ',g:5,word:'ぬいぐるみ', we:'🧸'},
-  {c:'ね',g:5,word:'ねこ',       we:'🐱'},
+  {c:'な',g:5,word:'なす',       we:'🍆'},{c:'に',g:5,word:'にじ',       we:'🌈'},
+  {c:'ぬ',g:5,word:'ぬいぐるみ', we:'🧸'},{c:'ね',g:5,word:'ねこ',       we:'🐱'},
   {c:'の',g:5,word:'のはら',     we:'🌾'},
-  {c:'は',g:6,word:'はな',       we:'🌸'},
-  {c:'ひ',g:6,word:'ひよこ',     we:'🐥'},
-  {c:'ふ',g:6,word:'ふね',       we:'⛵'},
-  {c:'へ',g:6,word:'へび',       we:'🐍'},
+  {c:'は',g:6,word:'はな',       we:'🌸'},{c:'ひ',g:6,word:'ひよこ',     we:'🐥'},
+  {c:'ふ',g:6,word:'ふね',       we:'⛵'},{c:'へ',g:6,word:'へび',       we:'🐍'},
   {c:'ほ',g:6,word:'ほし',       we:'⭐'},
-  {c:'ま',g:7,word:'まる',       we:'⭕'},
-  {c:'み',g:7,word:'みかん',     we:'🍊'},
-  {c:'む',g:7,word:'むし',       we:'🐛'},
-  {c:'め',g:7,word:'めがね',     we:'👓'},
+  {c:'ま',g:7,word:'まる',       we:'⭕'},{c:'み',g:7,word:'みかん',     we:'🍊'},
+  {c:'む',g:7,word:'むし',       we:'🐛'},{c:'め',g:7,word:'めがね',     we:'👓'},
   {c:'も',g:7,word:'もも',       we:'🍑'},
-  {c:'や',g:8,word:'やぎ',       we:'🐐'},
-  {c:'ゆ',g:8,word:'ゆき',       we:'❄️'},
+  {c:'や',g:8,word:'やぎ',       we:'🐐'},{c:'ゆ',g:8,word:'ゆき',       we:'❄️'},
   {c:'よ',g:8,word:'よる',       we:'🌙'},
-  {c:'ら',g:9,word:'らっぱ',     we:'🎺'},
-  {c:'り',g:9,word:'りんご',     we:'🍎'},
-  {c:'る',g:9,word:'るびー',     we:'💎'},
-  {c:'れ',g:9,word:'れもん',     we:'🍋'},
+  {c:'ら',g:9,word:'らっぱ',     we:'🎺'},{c:'り',g:9,word:'りんご',     we:'🍎'},
+  {c:'る',g:9,word:'るびー',     we:'💎'},{c:'れ',g:9,word:'れもん',     we:'🍋'},
   {c:'ろ',g:9,word:'ろうそく',   we:'🕯️'},
-  {c:'わ',g:10,word:'わに',      we:'🐊'},
-  {c:'を',g:10,word:'おを',      we:'📝'},
+  {c:'わ',g:10,word:'わに',      we:'🐊'},{c:'を',g:10,word:'おを',      we:'📝'},
   {c:'ん',g:10,word:'ん',        we:'💫'},
 ];
+const ROW_LABELS = ['あ行','か行','さ行','た行','な行','は行','ま行','や行','ら行','わ行'];
 
-// ================================================================
-//  STATE
-// ================================================================
-let maxGroup    = 10;   // 全50音を最初から使用
-let hitCount    = {};   // correct count per character
-let queue       = [];
-let current     = null; // current quiz question
-let quizChars   = [];   // [char, char, char] assigned to 3 bubbles
-let locked      = false;
-let score       = 0;
-let streak      = 0;
-let totalCorrect= 0;
-let audioCtx    = null;
-
+// ============================================================
+//  SHARED STATE
+// ============================================================
+let audioCtx = null;
+let hitCount = {};
 HIRAGANA.forEach(h => { hitCount[h.c] = 0; });
 
-// ================================================================
+// ============================================================
 //  SCREEN NAVIGATION
-// ================================================================
-function showMenu() {
-  setScreen('menuScreen');
-}
-
-function showFreePlay() {
-  renderFreePlay();
-  setScreen('playScreen');
-}
-
-function showGame() {
-  setScreen('gameScreen');
-  buildQueue();
-  nextQuestion();
-}
-
+// ============================================================
 function setScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
+function showMenu()     { setScreen('menuScreen'); }
+function showFreePlay() { fpRenderAll(); setScreen('playScreen'); }
+function showGame()     { setScreen('gameScreen'); gBuildQueue(); gNext(); }
+function showWrite()    { setScreen('writeScreen'); wInit(); }
 
-// ================================================================
+// ============================================================
 //  FREE PLAY
-// ================================================================
-const ROW_LABELS = ['あ行','か行','さ行','た行','な行','は行','ま行','や行','ら行','わ行'];
-let fpSelectedGroup = 1; // 表示中の行グループ
+// ============================================================
+let fpGroup = 1;
 
-function showFreePlayGroup(g) {
-  fpSelectedGroup = g;
-
-  // ボタンの選択状態を更新
-  document.querySelectorAll('.row-btn').forEach(b => {
-    b.classList.toggle('selected', parseInt(b.dataset.g) === g);
-  });
-
-  renderFpBubbles();
-}
-
-function renderFreePlay() {
-  // 行選択ボタンを生成
-  const selector = document.getElementById('rowSelector');
-  selector.innerHTML = '';
-  ROW_LABELS.forEach((label, i) => {
+function fpRenderAll() {
+  // Row selector
+  const sel = document.getElementById('fpRowSel');
+  sel.innerHTML = '';
+  ROW_LABELS.forEach((lbl, i) => {
     const g = i + 1;
-    const btn = document.createElement('button');
-    btn.className = 'row-btn' + (g === fpSelectedGroup ? ' selected' : '');
-    btn.dataset.g = g;
-    btn.textContent = label;
-    btn.addEventListener('click', () => showFreePlayGroup(g));
-    selector.appendChild(btn);
+    const b = document.createElement('button');
+    b.className = 'row-btn' + (g === fpGroup ? ' selected' : '');
+    b.textContent = lbl;
+    b.addEventListener('click', () => { fpGroup = g; fpRenderAll(); });
+    sel.appendChild(b);
   });
-
-  renderFpBubbles();
+  // Bubbles
+  fpRenderBubbles();
 }
 
-function renderFpBubbles() {
+function fpRenderBubbles() {
   const grid = document.getElementById('fpGrid');
   grid.innerHTML = '';
-
-  const chars = HIRAGANA.filter(h => h.g === fpSelectedGroup);
-  const durations = [2.0, 2.5, 1.9, 2.3, 2.1, 2.6, 1.8, 2.4, 2.2, 2.7];
-  const delays    = [0, .4, .8, .2, .6, 1.0, .3, .7, .1, .5];
-
-  chars.forEach((h, i) => {
+  const DUR = [2.0,2.5,1.9,2.3,2.1,2.6,1.8,2.4];
+  const DEL = [0,.4,.8,.2,.6,1.0,.3,.7];
+  HIRAGANA.filter(h => h.g === fpGroup).forEach((h, i) => {
     const el = document.createElement('div');
     el.className = 'fp-bubble';
     el.textContent = h.c;
-    el.style.setProperty('--fd',   `${durations[i % durations.length]}s`);
-    el.style.setProperty('--fdel', `${delays[i % delays.length]}s`);
-    el.addEventListener('click', () => tapFreePlay(h.c, el));
+    el.style.setProperty('--fd',   `${DUR[i % DUR.length]}s`);
+    el.style.setProperty('--fdel', `${DEL[i % DEL.length]}s`);
+    el.addEventListener('click', () => {
+      speakChar(h.c);
+      el.classList.remove('jumping'); void el.offsetWidth; el.classList.add('jumping');
+      el.addEventListener('animationend', () => el.classList.remove('jumping'), {once:true});
+    });
     grid.appendChild(el);
   });
 }
 
-function tapFreePlay(char, el) {
-  // Play sound — this is the whole point of free play
-  speakChar(char);
-  el.classList.remove('jumping');
-  void el.offsetWidth;
-  el.classList.add('jumping');
-  el.addEventListener('animationend', () => el.classList.remove('jumping'), { once: true });
+// ============================================================
+//  GAME
+// ============================================================
+let gCurrent = null, gChars = [], gQueue = [];
+let gScore = 0, gStreak = 0, gCorrect = 0;
+let gLocked = false;
+
+function gBuildQueue() {
+  gQueue = shuffle([...HIRAGANA]);
 }
 
-// ================================================================
-//  GAME — QUESTION FLOW
-// ================================================================
-function buildQueue() {
-  const pool = HIRAGANA.filter(h => h.g <= maxGroup);
-  queue = shuffle([...pool]);
-}
-
-function nextQuestion() {
+function gNext() {
   document.getElementById('celebOverlay').classList.remove('show');
-  locked = false;
+  gLocked = false;
+  if (!gQueue.length) gBuildQueue();
+  gCurrent = gQueue.pop();
 
-  if (queue.length === 0) buildQueue();
-  current = queue.pop();
+  document.getElementById('mascotSound').textContent = '🔊 ボタンを おしてね！';
 
-  // Update label (character hidden from label — just show "きいてね…" until button pressed)
-  document.getElementById('mascotSoundLabel').textContent = '🔊 ボタンを おしてね！';
-
-  // Assign 3 bubble chars
-  const pool = HIRAGANA.filter(h => h.c !== current.c && h.g <= maxGroup);
+  const pool   = HIRAGANA.filter(h => h.c !== gCurrent.c);
   const wrongs = shuffle(pool).slice(0, 2).map(h => h.c);
-  quizChars = shuffle([current.c, ...wrongs]);
+  gChars = shuffle([gCurrent.c, ...wrongs]);
 
-  // Reset bubble appearance
   for (let i = 0; i < 3; i++) {
     const el = document.getElementById(`qb${i}`);
     el.className = 'quiz-bubble';
     el.style.setProperty('--fd',   `${[2.0,2.4,1.8][i]}s`);
     el.style.setProperty('--fdel', `${[0,.3,.6][i]}s`);
-    el.textContent = quizChars[i];
+    el.textContent = gChars[i];
   }
-
-  updateStats();
-
-  // Auto-play the target sound after a short pause
-  setTimeout(playTargetSound, 600);
+  gUpdateStats();
+  setTimeout(gPlayTarget, 600);
 }
 
-function playTargetSound() {
-  const mascot = document.getElementById('mascotEmoji');
-  mascot.classList.remove('speaking');
-  void mascot.offsetWidth;
-  mascot.classList.add('speaking');
-  mascot.addEventListener('animationend', () => mascot.classList.remove('speaking'), { once: true });
-
-  document.getElementById('mascotSoundLabel').textContent = `「${current.c}」を さがそう！`;
-
-  speakChar(current.c);
+function gPlayTarget() {
+  const m = document.getElementById('mascotEmoji');
+  m.classList.remove('speaking'); void m.offsetWidth; m.classList.add('speaking');
+  m.addEventListener('animationend', () => m.classList.remove('speaking'), {once:true});
+  document.getElementById('mascotSound').textContent = `「${gCurrent.c}」を さがそう！`;
+  speakChar(gCurrent.c);
 }
 
-function replaySound() {
-  playTargetSound();
-}
+function replaySound() { gPlayTarget(); }
 
-// ================================================================
-//  GAME — TAP HANDLER
-// ================================================================
-function tapQuizBubble(idx) {
-  if (locked) return;
-
-  const tapped = quizChars[idx];
+function tapBubble(idx) {
+  if (gLocked) return;
+  const tapped = gChars[idx];
   const el     = document.getElementById(`qb${idx}`);
-  const correct = current.c;
 
-  if (tapped === correct) {
-    // ✅ CORRECT
-    locked = true;
+  if (tapped === gCurrent.c) {
+    gLocked = true;
     el.className = 'quiz-bubble correct-pop';
     playSound('correct');
-
-    score += 10 + streak * 3;
-    streak++;
-    totalCorrect++;
-    hitCount[correct]++;
-
-    updateStats();
-
-    setTimeout(showCelebration, 480);
-
+    gScore   += 10 + gStreak * 3;
+    gStreak++;
+    gCorrect++;
+    hitCount[gCurrent.c]++;
+    gUpdateStats();
+    setTimeout(gShowCeleb, 460);
   } else {
-    // ❌ WRONG — do NOT play the wrong character's sound
-    locked = true;
+    gLocked = true;
     el.className = 'quiz-bubble wrong-shake';
     playSound('wrong');
-    streak = 0;
-    updateStats();
-
+    gStreak = 0;
+    gUpdateStats();
     setTimeout(() => {
-      // Reset wrong bubble
       el.className = 'quiz-bubble';
-
-      // Glow the correct bubble as a hint
-      const correctIdx = quizChars.indexOf(correct);
-      document.getElementById(`qb${correctIdx}`).classList.add('hint-glow');
-
-      // Replay the target sound so child knows what to find
-      setTimeout(playTargetSound, 300);
-
-      locked = false;
-    }, 700);
+      const ci = gChars.indexOf(gCurrent.c);
+      document.getElementById(`qb${ci}`).classList.add('hint-glow');
+      setTimeout(gPlayTarget, 280);
+      gLocked = false;
+    }, 680);
   }
 }
 
-// ================================================================
-//  CELEBRATION
-// ================================================================
-function showCelebration() {
-  const d = current;
-  document.getElementById('celebChar').textContent = d.c;
+function gShowCeleb() {
+  const d = gCurrent;
+  document.getElementById('celebChar').textContent  = d.c;
   document.getElementById('celebEmoji').textContent = d.we;
   document.getElementById('celebWord').textContent  = d.word;
   document.getElementById('celebOverlay').classList.add('show');
-
-  // Play sound one more time so the association is reinforced
-  setTimeout(() => speakChar(d.c), 250);
-
+  setTimeout(() => speakChar(d.c), 230);
   launchConfetti();
 }
 
-function onCelebTap() {
-  nextQuestion();
-}
+function onCelebTap() { gNext(); }
 
-
-// ================================================================
-//  STATS
-// ================================================================
-function updateStats() {
-  document.getElementById('gameScore').textContent  = `⭐ ${score}`;
-  document.getElementById('gameStreak').textContent = streak >= 3 ? `🔥 ${streak}` : `れんぞく ${streak}`;
-
-  const available = HIRAGANA.filter(h => h.g <= maxGroup);
-  const mastered  = available.filter(h => hitCount[h.c] >= 3);
-  const pct = available.length ? (mastered.length / available.length) * 100 : 0;
+function gUpdateStats() {
+  document.getElementById('gameScore').textContent  = `⭐ ${gScore}`;
+  document.getElementById('gameStreak').textContent = gStreak >= 3 ? `🔥 ${gStreak}` : `れんぞく ${gStreak}`;
+  const mastered = HIRAGANA.filter(h => hitCount[h.c] >= 3);
+  const pct = (mastered.length / HIRAGANA.length) * 100;
   document.getElementById('progressFill').style.width = `${pct}%`;
-  document.getElementById('progressLbl').textContent  =
-    `おぼえたもじ: ${mastered.length} / ${available.length}`;
+  document.getElementById('progressLbl').textContent  = `おぼえたもじ: ${mastered.length} / ${HIRAGANA.length}`;
 }
 
-// ================================================================
-//  SPEECH (Web Speech API)
-// ================================================================
+// ============================================================
+//  WRITE MODE
+// ============================================================
+let wChar  = null;
+let wQueue = [];
+let wGroup = 0;          // 0 = ぜんぶ
+let wTotalStars = 0;
+let wStreak3    = 0;     // consecutive 3-stars
+let wDrawing    = false;
+let wLast       = {x:0, y:0};
+let wHue        = 200;
+let wBrush      = 30;
+let wEvalTimer  = null;
+let wHasDrawn   = false;
+let wResultShown = false;
+
+let wGcvs, wGctx, wDcvs, wDctx;
+let wInited = false;
+
+const W_EVAL_MS = 900;
+const W_THRES   = [0.18, 0.38, 0.58]; // 1★ 2★ 3★
+
+function wInit() {
+  wRenderRowSel();
+  if (!wInited) {
+    wInited = true;
+    wGcvs = document.getElementById('wGcvs');
+    wDcvs = document.getElementById('wDcvs');
+    wGctx = wGcvs.getContext('2d');
+    wDctx = wDcvs.getContext('2d');
+
+    // Resize observer keeps canvas pixels = display pixels
+    new ResizeObserver(() => {
+      const sz = document.getElementById('wWrap').clientWidth;
+      if (!sz) return;
+      wGcvs.width = wGcvs.height = wDcvs.width = wDcvs.height = sz;
+      wDrawGuide();
+    }).observe(document.getElementById('wWrap'));
+
+    // Pointer events (unifies mouse + touch + stylus)
+    wDcvs.addEventListener('pointerdown',   wStart, {passive:false});
+    wDcvs.addEventListener('pointermove',   wMove,  {passive:false});
+    wDcvs.addEventListener('pointerup',     wEnd,   {passive:false});
+    wDcvs.addEventListener('pointerleave',  wEnd,   {passive:false});
+    wDcvs.addEventListener('pointercancel', wEnd,   {passive:false});
+  }
+  wBuildQueue();
+  wNextChar();
+}
+
+function wRenderRowSel() {
+  const sel = document.getElementById('wRowSel');
+  sel.innerHTML = '';
+
+  const mkBtn = (label, g) => {
+    const b = document.createElement('button');
+    b.className = 'row-btn' + (wGroup === g ? ' selected' : '');
+    b.textContent = label;
+    b.addEventListener('click', () => { wGroup = g; wRenderRowSel(); wBuildQueue(); wNextChar(); });
+    sel.appendChild(b);
+  };
+  mkBtn('ぜんぶ', 0);
+  ROW_LABELS.forEach((lbl, i) => mkBtn(lbl, i + 1));
+}
+
+function wBuildQueue() {
+  const pool = wGroup === 0 ? [...HIRAGANA] : HIRAGANA.filter(h => h.g === wGroup);
+  wQueue = shuffle(pool);
+}
+
+function wNextChar() {
+  clearTimeout(wEvalTimer);
+  document.getElementById('wResult').classList.remove('show');
+  wResultShown = false;
+
+  if (!wQueue.length) wBuildQueue();
+  wChar = wQueue.pop();
+
+  document.getElementById('wCharBig').textContent   = wChar.c;
+  document.getElementById('wHintEmoji').textContent = wChar.we;
+  document.getElementById('wHintWord').textContent  = wChar.word;
+  document.getElementById('wInstruction').textContent = 'なぞってみよう！ ✏️';
+  wResetCovBar();
+  wClearCanvas();
+  speakChar(wChar.c);
+}
+
+function wDrawGuide() {
+  if (!wGctx || !wChar) return;
+  const s = wGcvs.width;
+  wGctx.clearRect(0, 0, s, s);
+  wGctx.font = `bold ${Math.floor(s * 0.76)}px 'Hiragino Rounded Gothic Pro','BIZ UDPGothic',sans-serif`;
+  wGctx.fillStyle = 'rgba(0,0,0,0.07)';
+  wGctx.textAlign = 'center';
+  wGctx.textBaseline = 'middle';
+  wGctx.fillText(wChar.c, s / 2, s / 2);
+}
+
+function wClearCanvas() {
+  if (!wDctx) return;
+  wDctx.clearRect(0, 0, wDcvs.width, wDcvs.height);
+  wHue = 170 + Math.random() * 190;
+  wHasDrawn = false;
+  clearTimeout(wEvalTimer);
+  wDrawGuide();
+}
+
+function wClear() {
+  document.getElementById('wResult').classList.remove('show');
+  wResultShown = false;
+  wResetCovBar();
+  document.getElementById('wInstruction').textContent = 'なぞってみよう！ ✏️';
+  wClearCanvas();
+}
+
+function wResetCovBar() {
+  const f = document.getElementById('wCovFill');
+  f.style.width = '0%';
+  f.classList.remove('gold');
+}
+
+// ── Drawing handlers ─────────────────────────────────────
+function wStart(e) {
+  e.preventDefault();
+  try { wDcvs.setPointerCapture(e.pointerId); } catch(_) {}
+  wBrush    = e.pointerType === 'touch' ? 46 : 22;
+  wDrawing  = true;
+  wHasDrawn = true;
+  clearTimeout(wEvalTimer);
+  if (wResultShown) {
+    document.getElementById('wResult').classList.remove('show');
+    wResultShown = false;
+  }
+  const p = wPos(e);
+  wLast = p;
+  const col = wColor();
+  wDctx.beginPath();
+  wDctx.arc(p.x, p.y, wBrush / 2, 0, Math.PI * 2);
+  wDctx.fillStyle = col;
+  wDctx.shadowBlur = 14; wDctx.shadowColor = col;
+  wDctx.fill();
+  wDctx.shadowBlur = 0;
+}
+
+function wMove(e) {
+  if (!wDrawing) return;
+  e.preventDefault();
+  const p   = wPos(e);
+  const col = wColor();
+  wDctx.beginPath();
+  wDctx.moveTo(wLast.x, wLast.y);
+  wDctx.lineTo(p.x, p.y);
+  wDctx.strokeStyle = col;
+  wDctx.lineWidth   = wBrush;
+  wDctx.lineCap = wDctx.lineJoin = 'round';
+  wDctx.shadowBlur = 10; wDctx.shadowColor = col;
+  wDctx.stroke();
+  wDctx.shadowBlur = 0;
+  wHue = (wHue + 1.3) % 360;
+  wLast = p;
+}
+
+function wEnd(e) {
+  if (!wDrawing) return;
+  wDrawing = false;
+  if (wHasDrawn) wEvalTimer = setTimeout(wEvaluate, W_EVAL_MS);
+}
+
+function wPos(e) {
+  const r = wDcvs.getBoundingClientRect();
+  return {
+    x: (e.clientX - r.left) * (wDcvs.width  / r.width),
+    y: (e.clientY - r.top)  * (wDcvs.height / r.height),
+  };
+}
+
+function wColor() { return `hsl(${wHue},88%,56%)`; }
+
+// ── Evaluation ───────────────────────────────────────────
+function wEvaluate() {
+  const s  = wGcvs.width;
+  const gd = wGctx.getImageData(0, 0, s, s).data;
+  const dd = wDctx.getImageData(0, 0, s, s).data;
+  let refPx = 0, hitPx = 0;
+  for (let i = 3; i < gd.length; i += 4) {
+    if (gd[i] > 12) { refPx++; if (dd[i] > 12) hitPx++; }
+  }
+  const cov = refPx > 0 ? hitPx / refPx : 0;
+  const pct = Math.min(cov * 100, 100);
+
+  const fill = document.getElementById('wCovFill');
+  fill.style.width = `${pct}%`;
+  fill.classList.toggle('gold', pct >= 88);
+
+  let stars = 0;
+  if      (cov >= W_THRES[2]) stars = 3;
+  else if (cov >= W_THRES[1]) stars = 2;
+  else if (cov >= W_THRES[0]) stars = 1;
+
+  if (!wResultShown) { wResultShown = true; wShowResult(stars); }
+}
+
+function wShowResult(stars) {
+  wTotalStars += stars;
+  if (stars === 3) wStreak3++; else wStreak3 = 0;
+
+  document.getElementById('wStarsBadge').textContent = `⭐ ${wTotalStars}`;
+
+  const msgs    = ['もう いっかい！', 'いいね！', 'じょうず！', 'すごい！！🎉'];
+  const starStr = '⭐'.repeat(stars) + '☆'.repeat(Math.max(0, 3 - stars));
+
+  document.getElementById('wResStars').textContent = starStr;
+  document.getElementById('wResMsg').textContent   = msgs[stars];
+  document.getElementById('wResEmoji').textContent = wChar.we;
+  document.getElementById('wResWord').textContent  = wChar.word;
+  document.getElementById('wResult').classList.add('show');
+  document.getElementById('wInstruction').textContent =
+    stars === 3 ? 'さいこう！ つぎへいこう！' : 'もういちど かくか つぎへ！';
+
+  if (stars >= 1) { playSound('correct'); setTimeout(() => speakChar(wChar.c), 340); }
+  if (stars === 3) launchConfetti();
+}
+
+function speakWChar() { if (wChar) speakChar(wChar.c); }
+
+// ============================================================
+//  SHARED: SPEECH, AUDIO, CONFETTI, UTIL
+// ============================================================
 function speakChar(char) {
   if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
+  speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(char);
-  u.lang  = 'ja-JP';
-  u.rate  = 0.7;
-  u.pitch = 1.3;
-  window.speechSynthesis.speak(u);
+  u.lang = 'ja-JP'; u.rate = 0.7; u.pitch = 1.3;
+  speechSynthesis.speak(u);
 }
 
-// ================================================================
-//  SOUND EFFECTS (Web Audio API)
-// ================================================================
-function getCtx() {
+function getACtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
+
 function playSound(type) {
   try {
-    const ctx = getCtx();
+    const ctx = getACtx();
     if (type === 'correct') {
-      [[523,0],[659,.11],[784,.22]].forEach(([freq,delay]) => {
-        const osc = ctx.createOscillator(), g = ctx.createGain();
-        osc.connect(g); g.connect(ctx.destination);
-        osc.type = 'sine'; osc.frequency.value = freq;
-        const t = ctx.currentTime + delay;
-        g.gain.setValueAtTime(.22, t);
-        g.gain.exponentialRampToValueAtTime(.001, t + .28);
-        osc.start(t); osc.stop(t + .28);
+      [[523,0],[659,.11],[784,.22]].forEach(([f,d]) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine'; o.frequency.value = f;
+        const t = ctx.currentTime + d;
+        g.gain.setValueAtTime(.2,t); g.gain.exponentialRampToValueAtTime(.001,t+.28);
+        o.start(t); o.stop(t+.28);
       });
     } else {
-      const osc = ctx.createOscillator(), g = ctx.createGain();
-      osc.connect(g); g.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(250, ctx.currentTime);
-      osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + .35);
-      g.gain.setValueAtTime(.18, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .35);
-      osc.start(); osc.stop(ctx.currentTime + .35);
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.setValueAtTime(250,ctx.currentTime);
+      o.frequency.linearRampToValueAtTime(150,ctx.currentTime+.35);
+      g.gain.setValueAtTime(.16,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.35);
+      o.start(); o.stop(ctx.currentTime+.35);
     }
   } catch(_) {}
 }
 
-// ================================================================
-//  CONFETTI
-// ================================================================
 function launchConfetti() {
   const layer = document.getElementById('confettiLayer');
   layer.innerHTML = '';
-  const colors = ['#ff6b6b','#ffd700','#74b9ff','#55efc4','#a29bfe','#fd79a8','#ff9f43'];
-  for (let i = 0; i < 48; i++) {
+  const cols = ['#ff6b6b','#ffd700','#74b9ff','#55efc4','#a29bfe','#fd79a8','#ff9f43'];
+  for (let i = 0; i < 52; i++) {
     const el = document.createElement('div');
     el.className = 'conf';
-    const s = 8 + Math.random() * 11;
+    const s = 7 + Math.random() * 12;
     el.style.cssText = [
-      `left:${Math.random()*100}%`,
-      `width:${s}px`, `height:${s}px`,
-      `background:${colors[i%colors.length]}`,
+      `left:${Math.random()*100}%`,`width:${s}px`,`height:${s}px`,
+      `background:${cols[i%cols.length]}`,
       `animation-duration:${1.1+Math.random()*2}s`,
-      `animation-delay:${Math.random()*.45}s`,
+      `animation-delay:${Math.random()*.5}s`,
       `border-radius:${Math.random()>.5?'50%':'3px'}`,
     ].join(';');
     layer.appendChild(el);
   }
-  setTimeout(() => { layer.innerHTML = ''; }, 3800);
+  setTimeout(() => { layer.innerHTML = ''; }, 4000);
 }
 
-// ================================================================
-//  UTILITY
-// ================================================================
 function shuffle(a) {
-  for (let i = a.length-1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
 
-// Keyboard shortcuts for testing
+// Keyboard shortcuts
 document.addEventListener('keydown', e => {
-  if (e.key==='1') tapQuizBubble(0);
-  if (e.key==='2') tapQuizBubble(1);
-  if (e.key==='3') tapQuizBubble(2);
+  if (e.key==='1') tapBubble(0);
+  if (e.key==='2') tapBubble(1);
+  if (e.key==='3') tapBubble(2);
   if (e.key==='r') replaySound();
   if (e.key==='Enter') onCelebTap();
 });
