@@ -187,10 +187,10 @@
     @media (min-width: 600px) {
       .canvas-wrap { width: min(46vw,390px); }
     }
-    #wGuideCanvas, #wDrawCanvas {
+    #wGcvs, #wDcvs {
       position: absolute; inset: 0; width: 100%; height: 100%;
     }
-    #wDrawCanvas { z-index: 1; cursor: crosshair; touch-action: none; }
+    #wDcvs { z-index: 1; cursor: crosshair; touch-action: none; }
 
     /* Coverage bar (bottom edge of canvas) */
     .w-cov-bar  { position: absolute; bottom: 0; left: 0; right: 0; height: 9px; background: rgba(0,0,0,.05); z-index: 2; }
@@ -364,9 +364,9 @@
 
   <div class="w-main">
     <!-- Canvas area -->
-    <div class="canvas-wrap" id="wWrap">
+    <div class="canvas-wrap" id="wWrap" style="touch-action:none">
       <canvas id="wGcvs"></canvas>
-      <canvas id="wDcvs"></canvas>
+      <canvas id="wDcvs" style="touch-action:none"></canvas>
       <div class="w-cov-bar"><div class="w-cov-fill" id="wCovFill"></div></div>
       <!-- Result overlay (lives inside the canvas box) -->
       <div class="w-result" id="wResult" onclick="wNextChar()">
@@ -464,7 +464,11 @@ function setScreen(id) {
 function showMenu()     { setScreen('menuScreen'); }
 function showFreePlay() { fpRenderAll(); setScreen('playScreen'); }
 function showGame()     { setScreen('gameScreen'); gBuildQueue(); gNext(); }
-function showWrite()    { setScreen('writeScreen'); wInit(); }
+function showWrite() {
+  setScreen('writeScreen');
+  // レイアウト確定後に初期化（2フレーム待つ）
+  requestAnimationFrame(() => requestAnimationFrame(wInit));
+}
 
 // ============================================================
 //  FREE PLAY
@@ -623,7 +627,7 @@ let wResultShown = false;
 let wGcvs, wGctx, wDcvs, wDctx;
 let wInited = false;
 
-const W_EVAL_MS = 900;
+const W_EVAL_MS = 2200; // 書き終えてから評価まで余裕をもたせる
 const W_THRES   = [0.18, 0.38, 0.58]; // 1★ 2★ 3★
 
 function wInit() {
@@ -647,8 +651,8 @@ function wInit() {
     wDcvs.addEventListener('pointerdown',   wStart, {passive:false});
     wDcvs.addEventListener('pointermove',   wMove,  {passive:false});
     wDcvs.addEventListener('pointerup',     wEnd,   {passive:false});
-    wDcvs.addEventListener('pointerleave',  wEnd,   {passive:false});
     wDcvs.addEventListener('pointercancel', wEnd,   {passive:false});
+    // pointerleave は使わない（高速に動かしたとき誤終了するため）
   }
   wBuildQueue();
   wNextChar();
@@ -678,6 +682,12 @@ function wNextChar() {
   clearTimeout(wEvalTimer);
   document.getElementById('wResult').classList.remove('show');
   wResultShown = false;
+
+  // canvasサイズが未設定なら強制リサイズ
+  if (wGcvs && wGcvs.width === 0) {
+    const sz = document.getElementById('wWrap').clientWidth;
+    if (sz) wGcvs.width = wGcvs.height = wDcvs.width = wDcvs.height = sz;
+  }
 
   if (!wQueue.length) wBuildQueue();
   wChar = wQueue.pop();
